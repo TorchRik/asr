@@ -1,0 +1,4 @@
+defaults:
+  - batch_transforms: example
+  - instance_transforms: log_mel_spectrogram
+  - _self_

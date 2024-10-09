@@ -1,0 +1,22 @@
+train:
+  data_object: # name of the tensor on which we apply transform
+    _target_: torchvision.transforms.v2.Compose
+    transforms:
+      - _target_: src.transforms.LogMelSpectrogramer
+        sample_rate: 22050
+        n_fft: 1024
+        win_length: 1024
+        hop_length: 256
+        n_mels: 80
+  labels:
+    _target_: transformers.
+inference:
+  data_object: # name of the tensor on which we apply transform
+    _target_: torchvision.transforms.v2.Compose
+    transforms:
+      - _target_: src.transforms.LogMelSpectrogramer
+        sample_rate: 22050
+        n_fft: 1024
+        win_length: 1024
+        hop_length: 256
+        n_mels: 80
