@@ -2,7 +2,7 @@ defaults:
   - model: las
   - writer: wandb
   - metrics: example
-  - datasets: las
+  - datasets: libre_speech
   - dataloader: las
   - transforms: las
   - _self_
