@@ -4,6 +4,7 @@ torchaudio
 torchmetrics
 tokenizers
 editdistance
+datasets
 transformers
 soundfile
 numpy==1.26.4
