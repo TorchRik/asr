@@ -7,4 +7,4 @@ class LogMelSpectrogram(MelSpectrogram):
         super(LogMelSpectrogram, self).__init__(*args, **kwargs)
 
     def forward(self, input):
-        return torch.log(super(LogMelSpectrogram, self).forward(input))
+        return torch.log1p(super(LogMelSpectrogram, self).forward(input))
