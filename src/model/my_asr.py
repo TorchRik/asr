@@ -147,7 +147,7 @@ class LAS(nn.Module):
         text_encoded: torch.Tensor,
         text_encoded_lengths: torch.Tensor,
         is_train: bool,
-        tf_rate: float = 0.8,
+        tf_rate: float = 0.9,
         *args,
         **kwargs
     ):
