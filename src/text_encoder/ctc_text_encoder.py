@@ -19,7 +19,7 @@ class CTCTextEncoder:
             alphabet (list): alphabet for language. If None, it will be
                 set to ascii
         """
-
+        assert False
         if alphabet is None:
             alphabet = list(ascii_lowercase + " ")
 

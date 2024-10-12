@@ -40,7 +40,7 @@ class Trainer(BaseTrainer):
             metric_funcs = self.metrics["train"]
             self.optimizer.zero_grad()
 
-        outputs = self.model(**batch)
+        outputs = self.model(**batch, is_train=self.is_train)
         batch.update(outputs)
 
         all_losses = self.criterion(**batch)
@@ -85,7 +85,7 @@ class Trainer(BaseTrainer):
             self.log_predictions(**batch)
 
     def log_spectrogram(self, spectrogram, **batch):
-        spectrogram_for_plot = spectrogram[0].detach().cpu()
+        spectrogram_for_plot = spectrogram[0].detach().cpu().transpose(0, 1)
         image = plot_spectrogram(spectrogram_for_plot)
         self.writer.add_image("spectrogram", image)
 

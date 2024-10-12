@@ -1,4 +1,8 @@
 defaults:
-  - batch_transforms: example
   - instance_transforms: log_mel_spectrogram
   - _self_
+
+# these lines are required if you do not use batch transforms
+batch_transforms:
+  train: null
+  inference: null
