@@ -133,7 +133,6 @@ class Inferencer(BaseTrainer):
         if metrics is not None:
             for met in self.metrics["inference"]:
                 metrics.update(met.name, met(**batch))
-            print(metrics)
 
         return batch
 

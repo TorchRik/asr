@@ -15,13 +15,13 @@ def main(config):
 
     tokenizer = instantiate(config.tokenizer)
 
-    data_dir = ROOT_PATH / "data" / "tokenizer"
-    data_dir.mkdir(exist_ok=True, parents=True)
+    save_dir = ROOT_PATH / config.save_path
+    save_dir.mkdir(exist_ok=True, parents=True)
 
     tokenizer.train_from_iterator(
         iterator=dataset_iterator, vocab_size=config.vocab_size, special_tokens=[""]
     )
-    tokenizer.save_model(str(data_dir))
+    tokenizer.save_model(str(save_dir))
 
 
 if __name__ == "__main__":

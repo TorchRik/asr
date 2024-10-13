@@ -40,7 +40,7 @@ class Trainer(BaseTrainer):
             metric_funcs = self.metrics["train"]
             self.optimizer.zero_grad()
 
-        outputs = self.model(**batch, is_train=self.is_train)
+        outputs = self.model(**batch, is_train=self.is_train, tf_rate=self.tf_rate)
         batch.update(outputs)
 
         all_losses = self.criterion(**batch)
@@ -99,6 +99,7 @@ class Trainer(BaseTrainer):
     def log_predictions(
         self,
         text,
+        log_probs_length,
         predicted_idxs,
         audio_path,
         attention_contexts,
@@ -106,7 +107,8 @@ class Trainer(BaseTrainer):
         **batch
     ):
         predicted_text = [
-            self.text_encoder.decode(inds.numpy()) for inds in predicted_idxs
+            self.text_encoder.decode(inds.numpy())
+            for inds, length in zip(predicted_idxs, log_probs_length)
         ]
         tuples = list(zip(predicted_text, text, audio_path, attention_contexts))
 

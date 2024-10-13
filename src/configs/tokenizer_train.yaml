@@ -5,3 +5,4 @@ defaults:
 tokenizer:
   _target_: tokenizers.SentencePieceBPETokenizer
 vocab_size: 100
+save_path: "saved/tokenizer"

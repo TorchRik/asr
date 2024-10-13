@@ -83,6 +83,7 @@ def main(config):
         logger=logger,
         writer=writer,
         batch_transforms=batch_transforms,
+        tf_rate=config.trainer.tf_rate,
         skip_oom=config.trainer.get("skip_oom", True),
     )
 

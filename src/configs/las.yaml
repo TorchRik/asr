@@ -14,16 +14,18 @@ loss_function:
   _target_: src.loss.LassLoss
 text_encoder:
   _target_: src.text_encoder.BPETextEncoder
+  save_path: "saved/tokenizer"
 trainer:
   log_step: 50
   n_epochs: 100
+  tf_rate: 0.9  # arg for las model training
   epoch_len: null
   device_tensors: ["spectrogram", "text_encoded"] # which tensors should be on device (ex. GPU)
   resume_from: null # null or path to the checkpoint dir with *.pth and config.yaml
   device: auto # device name or "auto"
   override: False # if True, will override the previous run with the same name
   max_grad_norm: 1
-  monitor: "min test_WER_(Argmax)" # "off" or "max/min metric_name", i.e. our goal is to maximize/minimize metric
+  monitor: "min test_WER" # "off" or "max/min metric_name", i.e. our goal is to maximize/minimize metric
   save_period: 5 # checkpoint each save_period epochs in addition to the best epoch
   early_stop: ${trainer.n_epochs} # epochs for early stopping
   save_dir: "saved"

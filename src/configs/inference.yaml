@@ -13,3 +13,4 @@ inferencer:
   from_pretrained: "saved/checkpoint-epoch100.pth" # path to the pretrained model
 text_encoder:
   _target_: src.text_encoder.BPETextEncoder
+  save_path: "saved/tokenizer"

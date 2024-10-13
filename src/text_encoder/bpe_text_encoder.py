@@ -9,21 +9,20 @@ from src.utils.io_utils import ROOT_PATH
 class BPETextEncoder:
     EMPTY_TOK = ""
 
-    def __init__(self, **kwargs):
+    def __init__(self, save_path, **kwargs):
         """
         Args:
             alphabet (list): alphabet for language. If None, it will be
                 set to ascii
         """
 
-        tokenizer_path = ROOT_PATH / "data" / "tokenizer"
+        tokenizer_path = ROOT_PATH / save_path
         vocab_path = str(tokenizer_path / "vocab.json")
         merges_txt = str(tokenizer_path / "merges.txt")
         self.bpe_tokenizer = SentencePieceBPETokenizer.from_file(
             vocab_filename=vocab_path,
             merges_filename=merges_txt,
         )
-        print()
 
     def __len__(self):
         return self.bpe_tokenizer.get_vocab_size()

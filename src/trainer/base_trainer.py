@@ -28,6 +28,7 @@ class BaseTrainer:
         dataloaders,
         logger,
         writer,
+        tf_rate,
         epoch_len=None,
         skip_oom=True,
         batch_transforms=None,
@@ -69,6 +70,7 @@ class BaseTrainer:
         self.log_step = config.trainer.get("log_step", 50)
 
         self.model = model
+        self.tf_rate = tf_rate
         self.criterion = criterion
         self.optimizer = optimizer
         self.lr_scheduler = lr_scheduler
