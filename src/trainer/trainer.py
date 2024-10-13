@@ -107,7 +107,7 @@ class Trainer(BaseTrainer):
         **batch
     ):
         predicted_text = [
-            self.text_encoder.decode(inds.numpy())
+            self.text_encoder.decode(inds.numpy())[:length]
             for inds, length in zip(predicted_idxs, log_probs_length)
         ]
         tuples = list(zip(predicted_text, text, audio_path, attention_contexts))
