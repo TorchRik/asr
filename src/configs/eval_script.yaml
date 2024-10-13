@@ -1,0 +1,2 @@
+predictions_path: "data/saved/libre_speech_test_clean"
+ground_truth_path: "data/saved/libre_speech_test_clean"

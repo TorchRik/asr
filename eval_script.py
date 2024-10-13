@@ -8,7 +8,7 @@ from src.metrics.utils import calc_cer, calc_wer
 warnings.filterwarnings("ignore", category=UserWarning)
 
 
-@hydra.main(version_base=None, config_path="src/configs", config_name="src_script")
+@hydra.main(version_base=None, config_path="src/configs", config_name="eval_script")
 def main(config):
     total_cer = 0
     total_wer = 0
