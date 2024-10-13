@@ -16,13 +16,11 @@ def collate_fn(dataset_items: list[dict[str, Any]]) -> dict[str, torch.Tensor]:
         result_batch (dict[Tensor]): dict, containing batch-version
             of the tensors.
     """
-    specs = [
-        dataset_item["spectrogram"].permute((0, 2, 1)) for dataset_item in dataset_items
-    ]
-    specs_lengths = torch.tensor([spec.shape[1] for spec in specs])
+    specs = [dataset_item["spectrogram"] for dataset_item in dataset_items]
+    specs_lengths = torch.tensor([spec.shape[2] for spec in specs])
     max_spec_length = specs_lengths.max().item()
     specs = torch.vstack(
-        [F.pad(spec, (0, 0, 0, max_spec_length - spec.shape[1])) for spec in specs]
+        [F.pad(spec, (0, max_spec_length - spec.shape[2], 0, 0)) for spec in specs]
     )
 
     encoded_texts = [dataset_item["text_encoded"] for dataset_item in dataset_items]

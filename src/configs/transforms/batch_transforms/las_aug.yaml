@@ -1,0 +1,9 @@
+train:
+  spectrogram:
+    _target_: torchvision.transforms.v2.Compose
+    transforms:
+      - _target_: torchaudio.transforms.FrequencyMasking
+        freq_mask_param: 27
+      - _target_: torchaudio.transforms.TimeMasking
+        time_mask_param: 100
+inference: null

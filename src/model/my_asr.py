@@ -151,6 +151,7 @@ class LAS(nn.Module):
         *args,
         **kwargs
     ):
+        spectrogram = spectrogram.permute(0, 2, 1)
         if not is_train:
             tf_rate = 0
         decode_step = text_encoded_lengths.max()

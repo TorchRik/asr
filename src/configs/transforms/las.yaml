@@ -1,8 +1,4 @@
 defaults:
   - instance_transforms: log_mel_spectrogram
+  - batch_transforms: las_aug
   - _self_
-
-# these lines are required if you do not use batch transforms
-batch_transforms:
-  train: null
-  inference: null
