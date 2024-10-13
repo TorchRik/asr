@@ -2,11 +2,10 @@ import logging
 import random
 
 import numpy as np
-import torch
 import torchaudio
 from torch.utils.data import Dataset
 
-from src.text_encoder import CTCTextEncoder
+from src.text_encoder import BPETextEncoder
 
 logger = logging.getLogger(__name__)
 
@@ -36,7 +35,7 @@ class BaseDataset(Dataset):
             index (list[dict]): list, containing dict for each element of
                 the dataset. The dict has required metadata information,
                 such as label and object path.
-            text_encoder (CTCTextEncoder): text encoder.
+            text_encoder (BPETextEncoder): text encoder.
             target_sr (int): supported sample rate.
             limit (int | None): if not None, limit the total number of elements
                 in the dataset to 'limit' elements.
@@ -188,7 +187,7 @@ class BaseDataset(Dataset):
         if max_text_length is not None:
             exceeds_text_length = (
                 np.array(
-                    [len(CTCTextEncoder.normalize_text(el["text"])) for el in index]
+                    [len(BPETextEncoder.normalize_text(el["text"])) for el in index]
                 )
                 >= max_text_length
             )

@@ -35,7 +35,7 @@ class Inferencer(BaseTrainer):
             device (str): device for tensors and model.
             dataloaders (dict[DataLoader]): dataloaders for different
                 sets of data.
-            text_encoder (CTCTextEncoder): text encoder.
+            text_encoder (BPETextEncoder): text encoder.
             save_path (str): path to save model predictions and other
                 information.
             metrics (dict): dict with the definition of metrics for
@@ -120,42 +120,20 @@ class Inferencer(BaseTrainer):
                 the dataloader (possibly transformed via batch transform)
                 and model outputs.
         """
-        # TODO change inference logic so it suits ASR assignment
-        # and task pipeline
 
         batch = self.move_batch_to_device(batch)
         batch = self.transform_batch(batch)  # transform batch on device -- faster
 
-        outputs = self.model(**batch)
+        outputs = self.model.beam_search(
+            **batch,
+        )
+
         batch.update(outputs)
 
         if metrics is not None:
             for met in self.metrics["inference"]:
                 metrics.update(met.name, met(**batch))
-
-        # Some saving logic. This is an example
-        # Use if you need to save predictions on disk
-
-        batch_size = batch["logits"].shape[0]
-        current_id = batch_idx * batch_size
-
-        for i in range(batch_size):
-            # clone because of
-            # https://github.com/pytorch/pytorch/issues/1995
-            logits = batch["logits"][i].clone()
-            label = batch["labels"][i].clone()
-            pred_label = logits.argmax(dim=-1)
-
-            output_id = current_id + i
-
-            output = {
-                "pred_label": pred_label,
-                "label": label,
-            }
-
-            if self.save_path is not None:
-                # you can use safetensors or other lib here
-                torch.save(output, self.save_path / part / f"output_{output_id}.pth")
+            print(metrics)
 
         return batch
 

@@ -1,1 +1,1 @@
-from src.text_encoder.bpe_text_encoder import CTCTextEncoder
+from src.text_encoder.bpe_text_encoder import BPETextEncoder

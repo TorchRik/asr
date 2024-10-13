@@ -1,7 +1,6 @@
 defaults:
   - instance_transforms: log_mel_spectrogram
   - _self_
-
 batch_transforms:
   train: null
   inference: null

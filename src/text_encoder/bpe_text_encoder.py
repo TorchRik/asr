@@ -6,7 +6,7 @@ from tokenizers import SentencePieceBPETokenizer
 from src.utils.io_utils import ROOT_PATH
 
 
-class CTCTextEncoder:
+class BPETextEncoder:
     EMPTY_TOK = ""
 
     def __init__(self, **kwargs):
