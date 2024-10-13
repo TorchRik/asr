@@ -1,5 +1,5 @@
 defaults:
-  - model: las_medium
+  - model: las_small
   - writer: wandb
   - metrics: example
   - datasets: libre_speech
