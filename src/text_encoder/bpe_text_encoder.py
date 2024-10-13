@@ -49,7 +49,7 @@ class CTCTextEncoder:
         return self.bpe_tokenizer.decode(inds)
 
     def ctc_decode(self, inds) -> str:
-        # TODO
+        # will not implement because of LAS
         return self.decode(inds)
 
     @staticmethod
