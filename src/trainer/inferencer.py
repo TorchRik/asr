@@ -134,7 +134,12 @@ class Inferencer(BaseTrainer):
             for met in self.metrics["inference"]:
                 metrics.update(met.name, met(**batch))
 
-        return batch
+        if self.save_path is not None:
+            for audio_path, predict in zip(batch["audio_path"], batch["text_encoded"]):
+                predicted_text = self.text_encoder.decode(predict.numpy())
+                file_name = audio_path.split("/")[-1].split(".")[0]
+                with open(self.save_path / (file_name + ".txt"), "w") as f:
+                    f.write(predicted_text)
 
     def _inference_part(self, part, dataloader):
         """
