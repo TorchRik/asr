@@ -20,16 +20,45 @@ python train_tokenizer.py
 ```
 2) Запустить первый скрипт обучения (конфиг las):
 ```
-python train.py
+python train.py --config-name las
 ```
 3) Запустить скрипт обучения с другими параметрами (конфиг las_continue):
 ```
-python train.py
+python train.py --config-name las_continue
 ```
 4) Запустить скрипт инференса с необходимыми параметрами + скрипт eval_script с одноименным конфигом для валидации.
 
-Для использования готовой модеи скачать веса здесь https://disk.yandex.ru/d/KQDuh4jNort-Hg
+5) Для использования готовой модеи скачать веса здесь https://disk.yandex.ru/d/KQDuh4jNort-Hg
 И кинуть в папку saved
+
+
+Для запуска на кастомном датасете:
+
+```bash
+python inference.py --config-name inference inferencer.from_pretrained = "PATH_TO_CHECKPOINT" \
+	datasets=custom +datasets.inference.audio_dir="PATH_TO_AUDIO_DIR" \
+	inferencer.save_path="PATH_TO_SAVE" \
+	metrics=empty
+```
+
+PATH_TO_CHECKPOINT - путь до чекпоинта, например "saved/final_model.pth".
+
+PATH_TO_AUDIO_DIR - путь до папки с аудио пример: "data/your_dir"
+
+PATH_TO_SAVE - Путь для сохранения, файлы будут лежать в "data/saved/PATH_TO_SAVE"
+
+
+Оценка сгенерированных данных:
+
+```bash
+python eval_script.py --config-name eval_script
+	predictions_path="PATH_TO_SAVED_PREDICTIONS" \
+	ground_truth_path="PATH_TO_GROUND_TRUTH_TEXTS"
+```
+
+Примеры:
+PATH_TO_SAVED_PREDICTIONS = "data/saved/PATH_TO_SAVE"
+PATH_TO_SAVED_PREDICTIONS = "data/ground_truth"
 
 ### Архитектура модели:
 

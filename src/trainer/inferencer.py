@@ -135,7 +135,9 @@ class Inferencer(BaseTrainer):
                 metrics.update(met.name, met(**batch))
 
         if self.save_path is not None:
-            for audio_path, predict in zip(batch["audio_path"], batch["text_encoded"]):
+            for audio_path, predict in zip(
+                batch["audio_path"], batch["predicted_idxs"]
+            ):
                 predicted_text = self.text_encoder.decode(predict.numpy())
                 file_name = audio_path.split("/")[-1].split(".")[0]
                 with open(self.save_path / (file_name + ".txt"), "w") as f:
@@ -156,10 +158,6 @@ class Inferencer(BaseTrainer):
         self.model.eval()
 
         self.evaluation_metrics.reset()
-
-        # create Save dir
-        if self.save_path is not None:
-            (self.save_path / part).mkdir(exist_ok=True, parents=True)
 
         with torch.no_grad():
             for batch_idx, batch in tqdm(

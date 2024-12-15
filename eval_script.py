@@ -28,7 +28,7 @@ def main(config):
     cer = total_cer / total_count
     wer = total_wer / total_count
     print(f"CER: {cer}")
-    print(f"CER: {wer}")
+    print(f"WER: {wer}")
 
 
 if __name__ == "__main__":
